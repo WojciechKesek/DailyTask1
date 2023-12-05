@@ -1,4 +1,4 @@
-package advent1;
+package advent.day1.part1;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,13 +9,14 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        Path path = Path.of("src/advent1/data");
+        Path path = Path.of("src/advent/day1/part1/data");
         Stream<String> data = readFile(path);
         System.out.println(getSumOfNumbersStream(data));
     }
 
-    static long getSumOfNumbersStream(Stream<String> data){
+    private static long getSumOfNumbersStream(Stream<String> data){
         long sum;
+        int x = 0;
             sum = data.map(line -> {
                 Scanner scanner = new Scanner(line);
                 int firstDigit = scanner.useDelimiter("\\D+").nextInt();
