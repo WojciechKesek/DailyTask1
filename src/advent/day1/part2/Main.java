@@ -1,4 +1,4 @@
-package advent.day1.part1;
+package advent.day1.part2;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,13 +9,35 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        Path path = Path.of("src/advent/day1/part1/data");
+        Path path = Path.of("src/advent/day1/part2/data");
         Stream<String> data = readFile(path);
         System.out.println(getSumOfNumbersStream(data));
     }
 
     private static long getSumOfNumbersStream(Stream<String> data){
             return data.map(line -> {
+            int maxIndex = -1;
+            int minIndex = -1;
+            int max = 0;
+            int min = Integer.MAX_VALUE;
+            String[] numbers = {"one","two","three","four","five","six","seven","eight","nine"};
+            String[] intNumbers = {"1","2","3","4","5","6","7","8","9"};
+            for (int i = 0; i < numbers.length; i++) {
+                if(min > line.indexOf(numbers[i]) && line.contains(numbers[i])){
+                    minIndex = i;
+                    min = line.indexOf(numbers[i]);
+                }
+                if(max < line.lastIndexOf(numbers[i])){
+                    maxIndex = i;
+                    max = line.lastIndexOf(numbers[i]);
+                }
+            }
+            if(minIndex != -1){
+                line = line.replaceFirst(numbers[minIndex], intNumbers[minIndex]+numbers[minIndex]);
+            }
+            if(maxIndex != -1){
+                line = line.replaceAll(numbers[maxIndex], numbers[maxIndex]+intNumbers[maxIndex]);
+            }
                 Scanner scanner = new Scanner(line);
                 int firstDigit = scanner.useDelimiter("\\D+").nextInt();
                 int lastDigit = firstDigit%10;
